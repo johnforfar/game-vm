@@ -1,4 +1,11 @@
-# Code VM
+# Game VM
+
+## Overview
+
+Game VM is a purpose-built virtual machine for reduced fees on Solana, designed for game challenge pools and interactive gaming experiences.
+
+Based off Code VM.
+
 ![license][license-image]
 ![version][version-image]
 
