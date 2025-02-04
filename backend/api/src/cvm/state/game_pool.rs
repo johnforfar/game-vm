@@ -1,6 +1,6 @@
 // backend/api/src/cvm/state/game_pool.rs
 use borsh::{BorshDeserialize, BorshSerialize};
-use solana_program::pubkey::Pubkey;
+use anchor_lang::prelude::Pubkey;
 
 #[derive(BorshSerialize, BorshDeserialize, Debug, Clone)]
 pub struct GamePoolAccount {
