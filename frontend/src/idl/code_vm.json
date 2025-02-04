@@ -11,7 +11,11 @@
         0,
         0,
         0
-      ]
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": []
+      }
     },
     {
       "name": "MemoryAccount",
@@ -24,7 +28,11 @@
         0,
         0,
         0
-      ]
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": []
+      }
     },
     {
       "name": "RelayAccount",
@@ -37,7 +45,11 @@
         0,
         0,
         0
-      ]
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": []
+      }
     },
     {
       "name": "StorageAccount",
@@ -50,7 +62,11 @@
         0,
         0,
         0
-      ]
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": []
+      }
     },
     {
       "name": "UnlockStateAccount",
@@ -63,7 +79,11 @@
         0,
         0,
         0
-      ]
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": []
+      }
     },
     {
       "name": "WithdrawReceiptAccount",
@@ -76,7 +96,11 @@
         0,
         0,
         0
-      ]
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": []
+      }
     }
   ],
   "address": "vmZ1WUq8SxjBWcaeTCvgJRZbS84R61uniFsQy5YMRTJ",
@@ -770,7 +794,11 @@
           0,
           0,
           0
-        ]
+        ],
+        "type": {
+          "kind": "struct",
+          "fields": []
+        }
       },
       {
         "name": "MemoryAccount",
@@ -783,7 +811,11 @@
           0,
           0,
           0
-        ]
+        ],
+        "type": {
+          "kind": "struct",
+          "fields": []
+        }
       },
       {
         "name": "RelayAccount",
@@ -796,7 +828,11 @@
           0,
           0,
           0
-        ]
+        ],
+        "type": {
+          "kind": "struct",
+          "fields": []
+        }
       },
       {
         "name": "StorageAccount",
@@ -809,7 +845,11 @@
           0,
           0,
           0
-        ]
+        ],
+        "type": {
+          "kind": "struct",
+          "fields": []
+        }
       },
       {
         "name": "UnlockStateAccount",
@@ -822,7 +862,11 @@
           0,
           0,
           0
-        ]
+        ],
+        "type": {
+          "kind": "struct",
+          "fields": []
+        }
       },
       {
         "name": "WithdrawReceiptAccount",
@@ -835,7 +879,11 @@
           0,
           0,
           0
-        ]
+        ],
+        "type": {
+          "kind": "struct",
+          "fields": []
+        }
       }
     ],
     "types": [

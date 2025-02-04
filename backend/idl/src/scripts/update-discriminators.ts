@@ -45,9 +45,17 @@ function updateDiscriminators() {
     for (const acc of accounts) {
         const val = accountValues[acc.name];
         if (val === undefined) {
-            throw new Error(`Account ${acc.name} not found`);
+            console.warn(`Warning: Account ${acc.name} not found in accountValues. Skipping discriminator update.`);
+            continue; // Skip updating this account.
         }
         acc.discriminator = val;
+
+        if (!(acc as any).hasOwnProperty("type")) {
+            (acc as any).type = {
+                kind: "struct",
+                fields: []
+            };
+        }
     }
 
     return idl;
