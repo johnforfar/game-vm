@@ -96,7 +96,6 @@ pub mod game_pool {
     use anchor_lang::prelude::Pubkey;
 
     #[account]
-    #[derive(AnchorSerialize, AnchorDeserialize, Debug, Clone, Copy, PartialEq)]
     pub struct GamePoolAccount {
         // Fixed to 3 players maximum. Unused slots will be all zeros.
         pub players: [Pubkey; 3],

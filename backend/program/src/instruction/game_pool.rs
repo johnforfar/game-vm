@@ -1,6 +1,6 @@
 // backend/program/src/instruction/game_pool.rs
 use anchor_lang::prelude::*;
-use crate::state::game_pool::GamePoolAccount;
+use crate::state::GamePoolAccount;
 
 #[derive(Accounts)]
 #[instruction(fee: u64)]
