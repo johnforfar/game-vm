@@ -75,4 +75,16 @@ pub mod code_vm {
     pub fn unlock(_ctx: Context<Unlock>, _data: UnlockArgs) -> Result<()> {
         Ok(())
     }
+
+    pub fn join_pool(ctx: Context<JoinPool>, fee: u64) -> Result<()> {
+        game_pool::join_pool(ctx, fee)
+    }
+
+    pub fn submit_score(ctx: Context<SubmitScore>, score: u64) -> Result<()> {
+        game_pool::submit_score(ctx, score)
+    }
+
+    pub fn resolve_pool(ctx: Context<ResolvePool>) -> Result<()> {
+        game_pool::resolve_pool(ctx)
+    }
 }

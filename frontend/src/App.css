@@ -1,0 +1,15 @@
+/* frontend/src/App.css */
+.App {
+    text-align: center;
+    background: #222;
+    color: #fff;
+    min-height: 100vh;
+    padding: 20px;
+  }
+  
+  .game-canvas {
+    background: #333;
+    border: 2px solid #fff;
+    display: block;
+    margin: 20px auto;
+  }
