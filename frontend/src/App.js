@@ -1,6 +1,18 @@
 // frontend/src/App.js
 import React, { useRef, useEffect, useState } from 'react';
+import * as anchor from '@coral-xyz/anchor';
+import { Connection, PublicKey, SystemProgram } from '@solana/web3.js';
 import './App.css';
+import idl from './idl/code_vm.json';
+
+// Initialize provider and program after imports
+const network = "http://localhost:8899"; // or your desired cluster URL
+const connection = new Connection(network, "processed");
+const provider = new anchor.AnchorProvider(connection, window.solana, { preflightCommitment: "processed" });
+anchor.setProvider(provider);
+
+const programId = new PublicKey(idl.address);
+const program = new anchor.Program(idl, programId, provider);
 
 const PLAYER_SIZE = 30;
 const FIREBALL_SIZE = 10;
@@ -11,6 +23,9 @@ const JUMP_VELOCITY = -10;
 // For our AI Agent we'll use 1 kin.
 const GAME_FEE = 100;
 const AI_FEE = 1;
+
+// Dummy Game Pool PDA - update this with your actual derivation logic
+const gamePoolAddress = new PublicKey("YourGamePoolPDAAddressHere");
 
 function drawHexagon(ctx, x, y, radius, color) {
   const sides = 6;
@@ -36,6 +51,7 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [joinedPool, setJoinedPool] = useState(false);
   const [score, setScore] = useState(0);
+  const [poolState, setPoolState] = useState(null);  // To hold game pool status
   
   // game objects
   const player = useRef({
@@ -54,16 +70,46 @@ function App() {
   const scoreRef = useRef(0);
   let spawnTimer = 0; // Used to time enemy spawns
   
-  // Dummy function to simulate joining the game pool and paying a fee.
+  // New joinGamePool function that calls the on-chain program
   const joinGamePool = async (fee) => {
-    alert(`Joining game pool and paying a fee of ${fee} kin.`);
-    setJoinedPool(true);
+    try {
+      const tx = await program.methods.joinPool(new anchor.BN(fee))
+        .accounts({
+          gamePool: gamePoolAddress,
+          player: provider.wallet.publicKey,
+          systemProgram: SystemProgram.programId,
+        })
+        .rpc();
+      console.log('Join pool tx signature:', tx);
+      setJoinedPool(true);
+    } catch (err) {
+      console.error("Error joining game pool:", err);
+    }
   };
   
-  // This function is only used for the AI Agent.
+  // Optionally, the AI Agent can also use the same function with different fee
   const deployAIAgent = async () => {
     await joinGamePool(AI_FEE);
   };
+
+  // Function to poll the game pool state and update UI (adjust account fetching as needed)
+  const fetchGamePoolStatus = async () => {
+    try {
+      const state = await program.account.gamePoolAccount.fetch(gamePoolAddress);
+      console.log("Fetched game pool state:", state);
+      setPoolState(state);
+    } catch (err) {
+      console.error("Error fetching game pool state:", err);
+    }
+  };
+
+  // Poll the game pool status every 5 seconds after joining
+  useEffect(() => {
+    if (joinedPool) {
+      const interval = setInterval(fetchGamePoolStatus, 5000);
+      return () => clearInterval(interval);
+    }
+  }, [joinedPool]);
   
   useEffect(() => {
     if (!gameStarted) return;
@@ -231,6 +277,12 @@ function App() {
       )}
       <canvas ref={canvasRef} width={800} height={400} className="game-canvas" />
       <p>Score: {score}</p>
+      {poolState && (
+        <div className="pool-status">
+          <h2>Game Pool Status</h2>
+          <pre>{JSON.stringify(poolState, null, 2)}</pre>
+        </div>
+      )}
       <p>Use ↑ arrow to jump and Space to throw fireballs.</p>
     </div>
   );

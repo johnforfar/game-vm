@@ -11,8 +11,8 @@ code_vm = "vmZ1WUq8SxjBWcaeTCvgJRZbS84R61uniFsQy5YMRTJ"
 url = "https://api.apr.dev"
 
 [provider]
-wallet = "keypair-owner.json"
-cluster = "http://127.0.0.1:8899"
+wallet = "/Users/johnny/.config/solana/id.json"
+cluster = "http://localhost:8899"
 
 [scripts]
 test = "echo \"Error: no test specified\" && exit 1"
